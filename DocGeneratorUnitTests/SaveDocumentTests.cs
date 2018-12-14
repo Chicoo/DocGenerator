@@ -1,90 +1,37 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using DocumentGenerator.WordDocuments;
 using System.Collections.Generic;
 using System.IO;
 using DocumentGenerator.Common;
 using System.Text;
+using DocGenerator.UnitTests.Fixtures;
 
-namespace DocumentGeneratorTests
+namespace DocGenerator.UnitTests
 {
-    [TestClass]
-    public class SaveDocuments
+    [Collection("Shakespeare collection")]
+    public class SaveDocumentTest 
     {
-        #region Fields
-        #endregion Fields
-
-        #region Constants
-        private const string FILE_PATH = "Resources";
+        private const string FILE_PATH = "TestData";
         private const string FILE_NAME_WORD = "Test.docx";
         private const string FILE_NAME_WORD_FULL_DOCUMENT = "Full Text.docx";
         private const string FILE_NAME_ODF = "Test.odt";
         private const string FILE_NAME_ODF_FULL_DOCUMENT = "Full Text.odt";
         private const string TEMPLATE_NAME = "Default";
-        private const string TEMPLATE_PATH = "Resources";
+        private const string TEMPLATE_PATH = "TestData";
         private const string TEMPLATE_EXTENSION = "dotx";
-        private const string DOCUMENT_NAME = "Document";
-        private const string DOCUMENT_PATH = "Resources";
-        private const string DOCUMENT_EXTENSION = "dotx";
         private const string TITLE_IMAGE_NAME = "TitlePage";
-        private const string PORTRAIT_IMAGE_NAME = "Shakespeare";
         private const string IMAGE_EXTENSION = "jpg";
-        private const string IMAGE_PATH = "Resources";
-        #endregion  Constants
+        private const string IMAGE_PATH = "TestData";
 
-        #region Initialize
-        [ClassInitialize]
-        public static void InitializeClass(TestContext context)
+
+        ShakespeareFixtures _shakespeareFixtures;
+
+        public SaveDocumentTest(ShakespeareFixtures shakespeareFixtures)
         {
-            //Clean up the resources directory in the bin directory.
-            if (!Directory.Exists(FILE_PATH)) Directory.CreateDirectory(FILE_PATH);
-            foreach (var file in Directory.GetFiles(FILE_PATH))
-            {
-                File.Delete(file);
-            }
-
-            //Delete the temp dirtectory for odf images.
-            string dir = string.Format("{0}\\DocumentGenerator", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
-            if (Directory.Exists(dir))
-            {
-                foreach (var file in Directory.GetFiles(dir))
-                {
-                    File.Delete(file);
-                }
-                Directory.Delete(dir);
-            }
-
-            //Write images to the resource directory
-            var title_Location = string.Format("{0}\\{1}.{2}", IMAGE_PATH, TITLE_IMAGE_NAME, IMAGE_EXTENSION);
-            var portrait_location = string.Format("{0}\\{1}.{2}", IMAGE_PATH, PORTRAIT_IMAGE_NAME, IMAGE_EXTENSION);
-            var title = Properties.Resources.Sonnets1609titlepage;
-            var portrait = Properties.Resources.Shakespeare;
-
-            title.Save(title_Location);
-            portrait.Save(portrait_location);
-
-            title.Dispose();
-            portrait.Dispose();
+            _shakespeareFixtures = shakespeareFixtures;
         }
 
-        [TestInitialize]
-        public void Initialize()
-        {
-            //Get the path for the document and template file.
-            var templateLocation = string.Format("{0}\\{1}.{2}", TEMPLATE_PATH, TEMPLATE_NAME, TEMPLATE_EXTENSION);
-            var filename = string.Format("{0}\\{1}.{2}", DOCUMENT_PATH, DOCUMENT_NAME, DOCUMENT_EXTENSION);
-
-            //Remove the files if they exist
-            if (File.Exists(templateLocation)) File.Delete(templateLocation);
-            if (File.Exists(filename)) File.Delete(filename);
-
-            //Write the document and template file to the resource directory
-            File.WriteAllBytes(templateLocation, Properties.Resources.Default);
-            File.WriteAllBytes(filename, Properties.Resources.Document);
-        } 
-        #endregion Initialize
-
-        #region Document Content
         private void TwoTablesDocument(TextDocument document)
         {
             AddLinearTableToDocument(document, "Table 1");
@@ -141,7 +88,7 @@ namespace DocumentGeneratorTests
             AddPictureFromStream(document, "Shakespeare");
 
             //Add an image without a title
-            var picture3 = document.AddPicture(Properties.Resources.Shakespeare, string.Empty);
+            var picture3 = document.AddPicture(_shakespeareFixtures.Shakespeare, string.Empty);
         }
 
         private Table AddLinearTableToDocument(TextDocument document, string tableName)
@@ -257,7 +204,7 @@ namespace DocumentGeneratorTests
 
         private Picture AddPictureFromStream(TextDocument document, string title)
         {
-            return document.AddPicture(Properties.Resources.Shakespeare, title);
+            return document.AddPicture(_shakespeareFixtures.Shakespeare, title);
         }
 
         private Picture AddPictureFromFile(TextDocument document, string title)
@@ -362,35 +309,32 @@ namespace DocumentGeneratorTests
             return text.ToString();
         }
 
-        #endregion Document Content.
-
-        #region Save document
-        [TestMethod]
+        [Fact]
         public void SaveNewDocumentInOOXML()
         {
             var fileName = string.Format("{0}\\{1}", FILE_PATH, FILE_NAME_WORD_FULL_DOCUMENT);
             var document = TextDocument.Create(fileName, true);
             AddAllContentToDocument(document);
             //TwoTablesDocument(document);
-            document.Save(DocumentGenerator.Common.DocumentType.OOXMLTextDocument);
+            document.Save(DocumentType.OOXMLTextDocument);
 
-            Assert.IsTrue(File.Exists(fileName), "File not saved");
+            Assert.True(File.Exists(fileName), "File not saved");
             
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveNewDocumentInODF()
         {
             var fileName = string.Format("{0}\\{1}", FILE_PATH, FILE_NAME_ODF_FULL_DOCUMENT);
             var document = TextDocument.Create(fileName, true);
             AddAllContentToDocument(document);
 
-            document.Save(DocumentGenerator.Common.DocumentType.ODFTextDocument);
+            document.Save(DocumentType.ODFTextDocument);
 
-            Assert.IsTrue(File.Exists(fileName), "File not saved");
+            Assert.True(File.Exists(fileName), "File not saved");
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveNewDocumentInOOXMLWithNoRowsOrCols()
         {
             var fileName = string.Format("{0}\\{1}", FILE_PATH, FILE_NAME_WORD);
@@ -401,13 +345,13 @@ namespace DocumentGeneratorTests
             document.Tables[0].RemoveRow(0);
             document.Tables[0].RemoveRow(0);
 
-            document.Save(DocumentGenerator.Common.DocumentType.OOXMLTextDocument);
+            document.Save(DocumentType.OOXMLTextDocument);
 
-            Assert.IsTrue(File.Exists(fileName), "File not saved");
+            Assert.True(File.Exists(fileName), "File not saved");
 
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveNewDocumentInODFWithNoRowsOrCols()
         {
             var fileName = string.Format("{0}\\{1}", FILE_PATH, FILE_NAME_ODF);
@@ -418,43 +362,41 @@ namespace DocumentGeneratorTests
             document.Tables[0].RemoveRow(0);
             document.Tables[0].RemoveRow(0);
 
-            document.Save(DocumentGenerator.Common.DocumentType.ODFTextDocument);
+            document.Save(DocumentType.ODFTextDocument);
 
-            Assert.IsTrue(File.Exists(fileName), "File not saved");
+            Assert.True(File.Exists(fileName), "File not saved");
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FileLoadException), "AODL did not return the error for unsupported format")]
+        [Fact]
         public void SaveNewDocumentInODFWithNotSupportedExtension()
         {
             var fileName = string.Format("{0}\\{1}", FILE_PATH, "Test.odf");
             var document = TextDocument.Create(fileName, true);
-
-            document.Save(DocumentGenerator.Common.DocumentType.ODFTextDocument);
+            Assert.Throws<FileLoadException>(() => document.Save(DocumentType.ODFTextDocument));
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveDocumentFromTemplateStream()
         {
-            using (var stream = new MemoryStream(Properties.Resources.Default))
+            using (var stream = new MemoryStream(_shakespeareFixtures.Default))
             {
                 using (var reader = new StreamReader(stream))
                 {
                     var doc = TextDocument.Create(stream);
 
-                    Assert.IsNotNull(doc, "Text Document not created");
+                    Assert.NotNull(doc);
                     if (doc != null)
                     {
                         var fileName = string.Format("{0}\\{1}", FILE_PATH, FILE_NAME_WORD);
                         doc.Filename = fileName;
-                        doc.Save(DocumentGenerator.Common.DocumentType.OOXMLTextDocument);
-                        Assert.IsTrue(File.Exists(fileName), "File not saved");
+                        doc.Save(DocumentType.OOXMLTextDocument);
+                        Assert.True(File.Exists(fileName), "File not saved");
                     }
                 }
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveDocumentFromTemplateFile()
         {
             var templateLocation = string.Format("{0}\\{1}.{2}", TEMPLATE_PATH, TEMPLATE_NAME, TEMPLATE_EXTENSION);
@@ -462,23 +404,22 @@ namespace DocumentGeneratorTests
             TextDocument doc = TextDocument.Create(fileName, templateLocation, true);
             if (doc != null)
             {
-                doc.Save(DocumentGenerator.Common.DocumentType.OOXMLTextDocument);
-                Assert.IsTrue(File.Exists(fileName), "File not saved");
+                doc.Save(DocumentType.OOXMLTextDocument);
+                Assert.True(File.Exists(fileName), "File not saved");
             }
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FilenameEmptyException), "File saved without a filename")]
+        [Fact]
         public void SaveDocumentWithoutFilename()
         {
             var document = TextDocument.Create();
-            document.Save(DocumentGenerator.Common.DocumentType.OOXMLTextDocument);
+            Assert.Throws<FilenameEmptyException>(() => document.Save(DocumentType.OOXMLTextDocument));
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveDocumentFromTemplateWithCustomTags()
         {
-            using (var stream = new MemoryStream(Properties.Resources.The_Sonnets_Template))
+            using (var stream = new MemoryStream(_shakespeareFixtures.The_Sonnets_Template))
             {
                 using (var reader = new StreamReader(stream))
                 {
@@ -487,7 +428,7 @@ namespace DocumentGeneratorTests
 
                     doc.ReplaceCustomTag("Author", "W. Shakespeare");
                     doc.ReplaceCustomTag("Title", "The Sonnets");
-                    doc.ReplaceCustomTag("AuthorImage", Properties.Resources.Shakespeare);
+                    doc.ReplaceCustomTag("AuthorImage", _shakespeareFixtures.Shakespeare);
 
                     doc.AddParagraph("Sonnet I", Sonnet1(), 1);
                     doc.AddParagraph("Sonnet II", Sonnet2(), "normal", "Heading1");
@@ -500,10 +441,10 @@ namespace DocumentGeneratorTests
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void SaveDocumentFromTemplateWithOnlyRowsDefinedInTable()
         {
-            using (var stream = new MemoryStream(Properties.Resources.Default))
+            using (var stream = new MemoryStream(_shakespeareFixtures.Default))
             {
                 using (var reader = new StreamReader(stream))
                 {
@@ -516,6 +457,5 @@ namespace DocumentGeneratorTests
                 }
             }
         }
-        #endregion Save document
     }
 }

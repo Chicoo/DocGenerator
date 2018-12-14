@@ -39,8 +39,7 @@ namespace DocumentGenerator.WordDocuments
         /// <param name="paragraphLevel">The level of the paragraph</param>
         public Picture(Image image,  string title, int paragraphLevel) : base(title, paragraphLevel)
         {
-            if(image == null) throw new ArgumentNullException("The image cannot be null");
-            _image = image;
+            _image = image ?? throw new ArgumentNullException("The image cannot be null");
         }
 
         /// <summary>
