@@ -117,7 +117,7 @@ namespace DocumentGenerator.WordDocuments
                                        ) { DistanceFromTop = (UInt32Value)0U, DistanceFromBottom = (UInt32Value)0U, DistanceFromLeft = (UInt32Value)0U, DistanceFromRight = (UInt32Value)0U }))
                            );
 
-            var paragraphs = new List<DocumentFormat.OpenXml.Wordprocessing.Paragraph> { paragraph };
+            var paragraphs = new List<OOXMLParagraph> { paragraph };
 
             //Add the caption if there is one.
             if(!string.IsNullOrEmpty(_text))

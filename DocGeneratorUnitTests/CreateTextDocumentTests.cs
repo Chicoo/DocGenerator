@@ -15,7 +15,7 @@ namespace DocGenerator.UnitTests
         private const string DOCUMENT_PATH = "TestData";
         private const string DOCUMENT_EXTENSION = "dotx";
 
-        private string _filename;
+        private readonly string _filename;
 
         ShakespeareFixtures _shakespeareFixtures;
 

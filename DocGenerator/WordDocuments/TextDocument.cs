@@ -428,16 +428,15 @@ namespace DocumentGenerator.WordDocuments
                     foreach (var paragraph in Paragraphs)
                     {
                         //If this is an image we also need to pass the MainpArt as this is needed to generate the image part
-                        var img = paragraph.Value as Picture;
                         var table = paragraph.Value as Table;
                         var list = paragraph.Value as List;
-                        if (img != null)
+                        if (paragraph.Value is Picture img)
                         {
                             foreach (var p in img.GetOOXMLParagraph(mainPart, paragraph.Key, ref imageCount))
                             {
                                 body.Append(p);
                             }
-                           
+
                         }
                         else if (table != null)
                         {
@@ -527,10 +526,9 @@ namespace DocumentGenerator.WordDocuments
                     foreach (KeyValuePair<int, Paragraph> paragraph in Paragraphs)
                     {
                         //If this is an image we also need to pass the MainpArt as this is needed to generate the image part
-                        Picture img = paragraph.Value as Picture;
                         Table table = paragraph.Value as Table;
                         List list = paragraph.Value as List;
-                        if (img != null)
+                        if (paragraph.Value is Picture img)
                         {
                             foreach (var p in img.GetODFParagraph(doc, paragraph.Key, ref imageCount))
                             {

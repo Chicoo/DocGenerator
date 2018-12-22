@@ -17,12 +17,12 @@ namespace DocumentGenerator.WordDocuments
     /// </summary>
     public struct ListItem
     {
-        private int _level;
+        private readonly int _level;
         /// <summary>
         /// The level of the list item. This determines the number of bullet type for the item.
         /// </summary>
         public int Level { get { return _level; } }
-        private string _text;
+        private readonly string _text;
         /// <summary>
         /// The text of the list item.
         /// </summary>
@@ -191,8 +191,10 @@ namespace DocumentGenerator.WordDocuments
                 paragraphProperties1.Append(numberingProperties1);
 
                 Run run1 = new Run();
-                Text text = new Text();
-                text.Text = item.Text;
+                Text text = new Text
+                {
+                    Text = item.Text
+                };
 
                 run1.Append(text);
 

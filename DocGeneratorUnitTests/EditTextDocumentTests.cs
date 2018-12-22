@@ -23,7 +23,7 @@ namespace DocGenerator.UnitTests
         TextDocument _document;
 
         //The id of the paragraph used in the tests.
-        string _paragraphId;
+        readonly string _paragraphId;
 
         ShakespeareFixtures _shakespeareFixtures;
 

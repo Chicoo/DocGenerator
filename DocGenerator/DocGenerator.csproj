@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AODL" Version="1.2.0.1" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.8.1" />
     <PackageReference Include="SharpZipLib" Version="1.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />

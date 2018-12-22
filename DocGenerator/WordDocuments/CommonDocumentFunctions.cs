@@ -25,13 +25,13 @@ namespace DocumentGenerator.WordDocuments
         private struct TextPart
         {
 
-            private int _startIndex;
+            private readonly int _startIndex;
             public int StartIndex { get { return _startIndex; } }
 
-            private int _length;
+            private readonly int _length;
             public int Length { get { return _length; } }
 
-            private object _element;
+            private readonly object _element;
             public OpenXmlElement OOXMLElement { get { return _element as OpenXmlElement; } }
             public AODL.Document.Content.Text.FormatedText ODFElement { get { return _element as AODL.Document.Content.Text.FormatedText; } }
 

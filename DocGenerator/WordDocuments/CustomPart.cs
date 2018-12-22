@@ -115,8 +115,7 @@ namespace DocumentGenerator.WordDocuments
         /// <param name="imageCount">The number of images</param>
         private void ReplaceImage(MainDocumentPart mainPart, ref int imageCount)
         {
-            Image image = Value as Image;
-            if (image == null) return;
+            if (!(Value is Image image)) return;
 
             //Find the tags in the body of the document. The tag value must correspond to the name provided in this object.
             //For images this is the SdtCell object.
@@ -133,9 +132,8 @@ namespace DocumentGenerator.WordDocuments
                         if (images.Count != 1) continue;
                         var drawing = images[0];
                         //When the image is found add the new image to the document.
-                        string imageName;
                         imageCount++;
-                        var rid = CommonDocumentFunctions.AddPictureToOOXMLDocument(headerPart, image, imageCount, out imageName);
+                        var rid = CommonDocumentFunctions.AddPictureToOOXMLDocument(headerPart, image, imageCount, out string imageName);
                         //Replace the old image name and id wityh the new one.
                         var properties = drawing.Inline.DocProperties;
                         properties.Name = imageName;
@@ -161,8 +159,7 @@ namespace DocumentGenerator.WordDocuments
                 if (images.Count != 1) continue;
                 var drawing = images[0];
                 //When the image is found add the new image to the document.
-                string imageName;
-                var rid = CommonDocumentFunctions.AddPictureToOOXMLDocument(mainPart, image, 0, out imageName);
+                var rid = CommonDocumentFunctions.AddPictureToOOXMLDocument(mainPart, image, 0, out string imageName);
                 //Replace the old image name and id wityh the new one.
                 var properties = drawing.Inline.DocProperties;
                 properties.Name = imageName;
