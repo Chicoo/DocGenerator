@@ -167,7 +167,7 @@ namespace AODL.Document.Export.Html
 			try
 			{
 				Assembly ass		= Assembly.GetExecutingAssembly();
-				Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.htmltemplate.html");
+				Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.htmltemplate.html");
 
 				string text			= null;
 				using (StreamReader sr = new StreamReader(str)) 

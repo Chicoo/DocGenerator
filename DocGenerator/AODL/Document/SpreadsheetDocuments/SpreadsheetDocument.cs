@@ -450,7 +450,7 @@ namespace AODL.Document.SpreadsheetDocuments
 		private void LoadBlankContent()
 		{
 				Assembly ass			= Assembly.GetExecutingAssembly();
-				Stream str				= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.spreadsheetcontent.xml");
+				Stream str				= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.spreadsheetcontent.xml");
 				_xmldoc			= new XmlDocument();
 				_xmldoc.Load(str);
 		}

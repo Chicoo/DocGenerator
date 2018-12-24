@@ -527,7 +527,7 @@ namespace AODL.Document.TextDocuments
 		public void New()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.meta.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.meta.xml");
 			Meta			= new XmlDocument();
 			Meta.Load(str);
 			

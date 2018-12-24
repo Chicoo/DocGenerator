@@ -527,7 +527,7 @@ namespace AODL.Document.TextDocuments
 			try
 			{
 				Assembly ass		= Assembly.GetExecutingAssembly();
-				Stream stream		= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.fonts.xml");
+				Stream stream		= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.fonts.xml");
 
 				XmlDocument fontdoc	= new XmlDocument();
 				fontdoc.Load(stream);

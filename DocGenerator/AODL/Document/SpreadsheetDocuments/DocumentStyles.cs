@@ -46,7 +46,7 @@ namespace AODL.Document.SpreadsheetDocuments
 		public override void New()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.spreadsheetstyles.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.spreadsheetstyles.xml");
 			Styles			= new XmlDocument();
 			Styles.Load(str);
 		}

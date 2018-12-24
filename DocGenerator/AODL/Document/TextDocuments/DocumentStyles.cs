@@ -81,7 +81,7 @@ namespace AODL.Document.TextDocuments
 		public virtual void New()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.styles.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.styles.xml");
 			Styles			= new XmlDocument();
 			Styles.Load(str);
 		}

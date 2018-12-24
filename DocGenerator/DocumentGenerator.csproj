@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>DocumentGenerator</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AODL\Resources\OD\Blank.odt" />
+    <None Remove="AODL\Resources\OD\chartcontent.xml" />
+    <None Remove="AODL\Resources\OD\chartstyle.xml" />
+    <None Remove="AODL\Resources\OD\content.xml" />
+    <None Remove="AODL\Resources\OD\fonts.xml" />
+    <None Remove="AODL\Resources\OD\htmltemplate.html" />
+    <None Remove="AODL\Resources\OD\manifest.xml" />
+    <None Remove="AODL\Resources\OD\meta.xml" />
+    <None Remove="AODL\Resources\OD\mimetype.txt" />
+    <None Remove="AODL\Resources\OD\settings.xml" />
+    <None Remove="AODL\Resources\OD\spreadsheetcontent.xml" />
+    <None Remove="AODL\Resources\OD\spreadsheetmanifest.xml" />
+    <None Remove="AODL\Resources\OD\spreadsheetsettings.xml" />
+    <None Remove="AODL\Resources\OD\spreadsheetstyles.xml" />
+    <None Remove="AODL\Resources\OD\styles.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AODL\Resources\OD\Blank.odt" />
+    <EmbeddedResource Include="AODL\Resources\OD\chartcontent.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\chartstyle.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\content.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\fonts.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\htmltemplate.html" />
+    <EmbeddedResource Include="AODL\Resources\OD\manifest.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\meta.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\mimetype.txt" />
+    <EmbeddedResource Include="AODL\Resources\OD\settings.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\spreadsheetcontent.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\spreadsheetmanifest.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\spreadsheetsettings.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\spreadsheetstyles.xml" />
+    <EmbeddedResource Include="AODL\Resources\OD\styles.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.8.1" />
+    <PackageReference Include="SharpZipLib" Version="1.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+  </ItemGroup>
+
+</Project>

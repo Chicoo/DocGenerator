@@ -62,7 +62,7 @@ namespace AODL.Document.TextDocuments
 		public virtual void New()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.settings.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.settings.xml");
 			Settings		= new XmlDocument();
 			Settings.Load(str);
 		}

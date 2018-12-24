@@ -627,7 +627,7 @@ namespace AODL.Document.Content.Charts
 		private void LoadBlankContent()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.chartcontent.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.chartcontent.xml");
 			ChartDoc .Load (str);
 		}
 
@@ -638,7 +638,7 @@ namespace AODL.Document.Content.Charts
 		private void LoadBlankStyles()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.chartstyle.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.chartstyle.xml");
 			ChartStyles .Styles.Load(str);
 
 		}

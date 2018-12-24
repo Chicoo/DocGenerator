@@ -66,7 +66,7 @@ namespace AODL.Document.TextDocuments
 		public virtual void New()
 		{
 			Assembly ass		= Assembly.GetExecutingAssembly();
-			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.WordDocuments.AODL.Resources.OD.manifest.xml");
+			Stream str			= ass.GetManifestResourceStream("DocumentGenerator.AODL.Resources.OD.manifest.xml");
 			Manifest		= new XmlDocument();
 			Manifest.Load(str);
 		}
